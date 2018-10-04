@@ -2,7 +2,7 @@ import React from 'react';
 import pT from 'prop-types';
 import styled from 'styled-components';
 // UIComponents
-import { Heading3, Heading2 } from '../../../components';
+import { Heading3, Heading2, Button } from '../../../components';
 // Assets and Variables
 import { BREAKPOINTS } from '../../../assets/variables';
 import Star from '../../../assets/images/star.svg';
@@ -12,6 +12,22 @@ const UserRepositoriesContainer = styled.div`
   @media (max-width: ${BREAKPOINTS.phone}) {
     margin-top: 3rem;
   }
+`;
+
+const UserRepositoriesHeader = styled.div`
+  margin-bottom: 1rem;
+`;
+const Title = styled(Heading2)`
+  font-weight: 500;
+  color: #ccc;
+`;
+const FilterContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+`;
+const FilterTitle = styled(Heading3)`
+  color: #ccc;
 `;
 
 const GoBtn = styled.span`
@@ -42,6 +58,9 @@ const RepositoryBox = styled.a`
   &:hover ${GoBtn} {
     top: 0;
   }
+  @media (max-width: ${BREAKPOINTS.phone}) {
+    margin-bottom: 1rem;
+  }
 `;
 const RepositoryInnerContainer = styled.div``;
 const RepositoryTitle = styled(Heading2)`
@@ -66,9 +85,20 @@ const RepositoryStarDetail = styled(Heading3)`
   margin-top: -2px;
 `;
 
-const UserRepositories = ({ onRepositoryPress, repositories }) => {
+const UserRepositories = ({ onRepositoryPress, repositories, starOrdered, onPressOrderStar }) => {
   return (
     <UserRepositoriesContainer>
+      <UserRepositoriesHeader>
+        <Title>Repositórios:</Title>
+        {repositories.length > 1 && (
+          <FilterContainer>
+            <FilterTitle>Filtrar por:</FilterTitle>
+            <Button small outline={starOrdered} onClick={onPressOrderStar}>
+              Stars
+            </Button>
+          </FilterContainer>
+        )}
+      </UserRepositoriesHeader>
       {repositories &&
         repositories.map(repo => {
           return (
@@ -91,11 +121,15 @@ const UserRepositories = ({ onRepositoryPress, repositories }) => {
 
 UserRepositories.propTypes = {
   onRepositoryPress: pT.func,
-  repositories: pT.array
+  repositories: pT.array,
+  starOrdered: pT.bool,
+  onPressOrderStar: pT.func
 };
 UserRepositories.defaultProps = {
   onRepositoryPress: () => {},
-  repositories: []
+  repositories: [],
+  starOrdered: false,
+  onPressOrderStar: () => {}
 };
 
 export default UserRepositories;

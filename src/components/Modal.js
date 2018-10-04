@@ -3,8 +3,6 @@ import pT from 'prop-types';
 import styled from 'styled-components';
 // UIComponents
 import { Button } from './Button';
-// Assets
-import { BREAKPOINTS } from '../assets/variables';
 
 const Modal = styled.div`
   position: fixed;

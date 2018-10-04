@@ -61,7 +61,6 @@ const UserBoxDetail = styled(Heading3)`
 const UserFollowersText = styled(SmallText)``;
 
 const UserInfo = ({ userData }) => {
-  console.log('userData: ', userData);
   return (
     <UserInfoContainer>
       <UserBox>

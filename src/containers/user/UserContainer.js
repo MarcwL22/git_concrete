@@ -11,9 +11,10 @@ import UserModalRepository from './components/UserModalRepository';
 import UserError from './components/UserError';
 import UserInfo from './components/UserInfo';
 import UserRepositories from './components/UserRepositories';
-// import UserLoading from ''
-// Varibles
+// Variables
 import { BREAKPOINTS } from '../../assets/variables';
+// Util
+import { orderArrByName, orderArrByStarCount } from '../../util';
 // Mocks
 import userMock from './userMock.json';
 import reposMock from './repositoriesMock.json';
@@ -27,27 +28,41 @@ const MainContainer = styled.div`
 `;
 
 export class UserContainer extends Component {
+  state = {
+    orderByName: false,
+    orderByStar: false
+  };
+
   componentDidMount() {
     const { user } = this.props.match.params;
     // this.props.fetchUser(user);
     // this.props.fetchUserRepositories(user);
   }
 
-  backHome = () => {
-    this.props.history.push('/');
+  backHome = () => this.props.history.push('/');
+
+  onRepoClick = fullName => this.props.fetchRepositoryDetail(fullName);
+
+  closeModal = () => this.props.handleModal();
+
+  onPressOrderByStar = () => {
+    this.setState({ orderByStar: !this.state.orderByStar, orderByName: false });
   };
 
-  onRepoClick = fullName => {
-    this.props.fetchRepositoryDetail(fullName);
+  onPressOrderByName = () => {
+    this.setState({ orderByName: !this.state.orderByName, orderByStar: false });
   };
 
-  closeModal = () => {
-    this.props.handleModal();
+  orderArr = array => {
+    const { orderByStar } = this.state;
+    if (orderByStar) return array.sort((a, b) => b.stargazers_count - a.stargazers_count);
+    return orderArrByName(array);
   };
 
   renderContent = () => {
     const { homeReducer, loadingRepos, errorRepos, repositories } = this.props;
     const { loading, error, user } = homeReducer;
+    const { orderByStar } = this.state;
     if (loading && loadingRepos) {
       return <UserLoading />;
     } else if (errorRepos && error) {
@@ -55,10 +70,15 @@ export class UserContainer extends Component {
     } else {
       return (
         <React.Fragment>
-          {/* <UserInfo userData={userMock} /> */}
+          {/* <UserInfo userData={user} /> */}
           <UserInfo userData={userMock} />
           {/* <UserRepositories repositories={repositories} onRepositoryPress={this.onRepoClick} /> */}
-          <UserRepositories repositories={reposMock} onRepositoryPress={this.onRepoClick} />
+          <UserRepositories
+            repositories={this.orderArr(reposMock)}
+            starOrdered={orderByStar}
+            onPressOrderStar={this.onPressOrderByStar}
+            onRepositoryPress={this.onRepoClick}
+          />
         </React.Fragment>
       );
     }

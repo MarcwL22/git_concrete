@@ -4,3 +4,4 @@ export * from './Content';
 export * from './Loading';
 export * from './Modal';
 export * from './Error';
+export * from './Button';
