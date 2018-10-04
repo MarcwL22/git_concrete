@@ -8,7 +8,7 @@ const spin = keyframes`
 `;
 
 const Spinner = styled.div`
-  border: solid #ccc;
+  border: solid ${props => props.color};
   border-radius: 50%;
   border-top: solid #000;
   border-width: ${props => (props.small ? '.4rem' : '1.6rem')};
@@ -17,10 +17,11 @@ const Spinner = styled.div`
   animation: ${spin} 0.4s linear infinite;
 `;
 
-export const Loading = ({ small = false }) => {
-  return <Spinner small={small} />;
+export const Loading = ({ small = false, color = '#ccc' }) => {
+  return <Spinner small={small} color={color} />;
 };
 
 Loading.propTypes = {
-  small: pT.bool
+  small: pT.bool,
+  color: pT.string
 };

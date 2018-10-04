@@ -3,6 +3,8 @@ import pT from 'prop-types';
 import styled from 'styled-components';
 // UIComponents
 import { Button } from './Button';
+// Assets
+import { BREAKPOINTS } from '../assets/variables';
 
 const Modal = styled.div`
   position: fixed;
@@ -18,37 +20,37 @@ const Modal = styled.div`
 `;
 
 const ModalContent = styled.div`
-  padding: 2rem 4rem;
+  padding: 2rem;
   max-width: 60rem;
-  min-width: 36rem;
+  min-width: 32rem;
   max-height: 85%;
   overflow: auto;
   position: absolute;
-  top: 5%;
+  top: 50%;
   left: 50%;
   z-index: 2;
   opacity: ${props => (props.isOpen ? 1 : 0)};
   background: #fff;
-  transform: translate(-50%, 0);
-  transition: all 0.5s ease-in-out;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease-in-out;
 `;
 
 const ButtonGroup = styled.div`
+  margin-top: 2rem;
   display: flex;
   justify-content: space-around;
 `;
 
-export const ModalComponent = ({ isOpen, onAccept, onDecline, children }) => {
+export const ModalComponent = ({ isOpen, onClose, children, showFooterBtn }) => {
   return (
     <Modal isOpen={isOpen}>
       <ModalContent isOpen={isOpen}>
         {children}
-        <ButtonGroup>
-          <Button onClick={onDecline}>não</Button>
-          <Button onAccept={onAccept} outline>
-            sim
-          </Button>
-        </ButtonGroup>
+        {showFooterBtn && (
+          <ButtonGroup>
+            <Button onClick={onClose}>Fechar</Button>
+          </ButtonGroup>
+        )}
       </ModalContent>
     </Modal>
   );
@@ -56,11 +58,11 @@ export const ModalComponent = ({ isOpen, onAccept, onDecline, children }) => {
 
 ModalComponent.propTypes = {
   isOpen: pT.bool,
-  onAccept: pT.func,
-  onDecline: pT.func
+  showFooterBtn: pT.bool,
+  onClose: pT.func
 };
 ModalComponent.defaultProps = {
   isOpen: false,
-  onAccept: () => {},
-  onDecline: () => {}
+  showFooterBtn: true,
+  onClose: () => {}
 };

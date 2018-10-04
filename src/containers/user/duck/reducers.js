@@ -20,11 +20,14 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, loadingRepos: false, errorRepos: true, repositories: [] };
 
     case types.FETCH_REPO_DETAIL_START:
-      return { ...state, loadingRepoDetail: true };
+      return { ...state, loadingRepoDetail: true, modalRepoOpen: true };
     case types.FETCH_REPO_DETAIL_FINISH:
       return { ...state, loadingRepoDetail: false, errorRepoDetail: false, repository: action.payload };
     case types.FETCH_REPO_DETAIL_ERROR:
       return { ...state, loadingRepoDetail: false, errorRepoDetail: true, repository: {} };
+
+    case types.HANDLE_USER_MODAL:
+      return { ...state, modalRepoOpen: !state.modalRepoOpen };
     default:
       return state;
   }

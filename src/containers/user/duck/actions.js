@@ -13,3 +13,5 @@ export const getUserReposComplete = repos => ({
   type: types.FETCH_USER_REPOS_FINISH,
   payload: repos
 });
+
+export const handleModalOpenClose = () => ({ type: types.HANDLE_USER_MODAL });

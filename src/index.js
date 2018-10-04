@@ -9,12 +9,13 @@ import reducers from './reducers';
 // Global Assets
 import { injectGlobal } from 'styled-components';
 // Router
-import { Route, BrowserRouter as Router } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 // Containers
 import HomeContainer from './containers/home/HomeContainer';
+import UserContainer from './containers/user/UserContainer';
 // Variables
-import { BREAKPOINTS } from './assets/variables';
+import { BREAKPOINTS, COLORS } from './assets/variables';
 // UIComponents
 import { Container } from './components';
 
@@ -45,7 +46,7 @@ injectGlobal`
     line-height: 1.6;
     min-height: 100vh;
     background-color: #FAFAFA;
-    background: linear-gradient(90deg, #467edc, #2643dc);
+    background: linear-gradient(90deg, ${COLORS.blueLight}, ${COLORS.blueStrong});
   }
 `;
 
@@ -55,7 +56,10 @@ render(
   <Provider store={store}>
     <Container>
       <Router>
-        <Route exact path={'/'} component={HomeContainer} />
+        <Switch>
+          <Route exact path="/" component={HomeContainer} />
+          <Route path="/:user" component={UserContainer} />
+        </Switch>
       </Router>
     </Container>
   </Provider>,

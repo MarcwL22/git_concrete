@@ -75,7 +75,13 @@ const HomeSearchForm = ({ onSubmit, onChangeText, value, loading, error, result 
           <img src={MaginifyImg} alt="MagnifyImg" />
         </InputButton>
       </InputGroup>
-      <HomeSearchResults error={error} loading={loading} isOpen={value !== ''} result={result} />
+      <HomeSearchResults
+        error={error}
+        loading={loading}
+        isOpen={value !== ''}
+        result={result}
+        onResultPress={onSubmit}
+      />
     </Form>
   );
 };

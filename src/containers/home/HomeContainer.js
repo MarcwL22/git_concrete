@@ -29,12 +29,13 @@ export class HomeContainer extends Component {
 
   searchFormSubmit = e => {
     e.preventDefault();
-    this.props.fetchUser(this.state.userInput);
+    this.props.history.push(`/${this.state.userInput}`);
   };
 
   render() {
     const { userInput } = this.state;
     const { loading, error, user } = this.props;
+    console.log('this.props: ', this.props);
     return (
       <HomeSection>
         <HomeLogo />

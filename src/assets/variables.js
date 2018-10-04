@@ -1,6 +1,6 @@
 export const COLORS = {
-  black: '#000',
-  white: '#fff',
+  blueStrong: '#2643dc',
+  blueLight: '#467edc',
   white75: 'rgba(255,255,255,0.75)',
   white50: 'rgba(255,255,255,0.5)',
   white25: 'rgba(255,255,255,0.25)',

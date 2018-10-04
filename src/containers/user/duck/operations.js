@@ -3,6 +3,10 @@ import axios from 'axios';
 // Config
 import config from '../../../config';
 
+export const handleModal = () => {
+  return dispatch => dispatch(Creators.handleModalOpenClose());
+};
+
 export const fetchUserRepositories = user => {
   return dispatch => {
     dispatch(Creators.getUserReposStart());
@@ -13,11 +17,12 @@ export const fetchUserRepositories = user => {
   };
 };
 
-export const fetchRepositoryDetail = repoName => {
+export const fetchRepositoryDetail = repoFullName => {
+  console.log('repoFullName: ', repoFullName);
   return dispatch => {
     dispatch(Creators.getRepoDetailStart());
     axios
-      .get(`${config.baseUrl}/repos/${repoName}`)
+      .get(`${config.baseUrl}/repos/${repoFullName}`)
       .then(({ data }) => dispatch(Creators.getRepoDetailComplete(data)))
       .catch(() => dispatch(Creators.getRepoDetailError()));
   };

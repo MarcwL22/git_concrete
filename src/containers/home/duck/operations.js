@@ -9,6 +9,8 @@ export const fetchUser = user => {
     axios
       .get(`${config.baseUrl}/users/${user}`)
       .then(({ data }) => dispatch(Creators.getUserComplete(data)))
-      .catch(error => dispatch(Creators.getUserError()));
+      .catch(() => {
+        dispatch(Creators.getUserError());
+      });
   };
 };
