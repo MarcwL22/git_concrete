@@ -14,11 +14,11 @@ import UserRepositories from './components/UserRepositories';
 // Variables
 import { BREAKPOINTS } from '../../assets/variables';
 // Util
-import { orderArrByName, orderArrByStarCount } from '../../util';
+import { orderArrByName } from '../../util';
 // Mocks
-import userMock from './userMock.json';
-import reposMock from './repositoriesMock.json';
-import repoMock from './repository.json';
+// import userMock from './userMock.json';
+// import reposMock from './repositoriesMock.json';
+// import repoMock from './repository.json';
 
 const MainContainer = styled.div`
   display: flex;
@@ -35,8 +35,8 @@ export class UserContainer extends Component {
 
   componentDidMount() {
     const { user } = this.props.match.params;
-    // this.props.fetchUser(user);
-    // this.props.fetchUserRepositories(user);
+    this.props.fetchUser(user);
+    this.props.fetchUserRepositories(user);
   }
 
   backHome = () => this.props.history.push('/');
@@ -70,11 +70,9 @@ export class UserContainer extends Component {
     } else {
       return (
         <React.Fragment>
-          {/* <UserInfo userData={user} /> */}
-          <UserInfo userData={userMock} />
-          {/* <UserRepositories repositories={repositories} onRepositoryPress={this.onRepoClick} /> */}
+          <UserInfo userData={user} />
           <UserRepositories
-            repositories={this.orderArr(reposMock)}
+            repositories={this.orderArr(repositories)}
             starOrdered={orderByStar}
             onPressOrderStar={this.onPressOrderByStar}
             onRepositoryPress={this.onRepoClick}

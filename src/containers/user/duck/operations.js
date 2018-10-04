@@ -10,7 +10,7 @@ export const handleModal = () => {
 export const fetchUserRepositories = user => {
   return dispatch => {
     dispatch(Creators.getUserReposStart());
-    axios
+    return axios
       .get(`${config.baseUrl}/users/${user}/repos`)
       .then(({ data }) => dispatch(Creators.getUserReposComplete(data)))
       .catch(() => dispatch(Creators.getUserReposError()));
@@ -18,10 +18,9 @@ export const fetchUserRepositories = user => {
 };
 
 export const fetchRepositoryDetail = repoFullName => {
-  console.log('repoFullName: ', repoFullName);
   return dispatch => {
     dispatch(Creators.getRepoDetailStart());
-    axios
+    return axios
       .get(`${config.baseUrl}/repos/${repoFullName}`)
       .then(({ data }) => dispatch(Creators.getRepoDetailComplete(data)))
       .catch(() => dispatch(Creators.getRepoDetailError()));

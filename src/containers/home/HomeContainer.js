@@ -35,7 +35,7 @@ export class HomeContainer extends Component {
   render() {
     const { userInput } = this.state;
     const { loading, error, user } = this.props;
-    console.log('this.props: ', this.props);
+
     return (
       <HomeSection>
         <HomeLogo />
